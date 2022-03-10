@@ -17,7 +17,7 @@ public class UploadController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "users";
     }
 
     @PostMapping("/upload-csv-file")
