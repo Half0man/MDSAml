@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <h1>File Upload Status</h1>
+                <!--display error if any-->
+                <div class="alert alert-danger" role="alert" th:if="!status">
+                    <strong>Error:</strong>
+                    <span th:text="message"></span>
+                </div>
+
+                <!--display users list-->
+                <table class="table table-striped" th:if="status">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">type Of Action</th>
+                        <th scope="col">source Id</th>
+                        <th scope="col">destination Id</th>
+                        <th scope="col">amount of money</th>
+                        <th scope="col">transaction Date</th>
+                        <th scope="col">title</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="transactionfile, i : ${transactionFiles}">
+                        <th scope="row" th:text="${i.index + 1}"></th>
+                        <td th:text="${transactionfile.id}"></td>
+                        <td th:text="${transactionfile.typeOfAction}"></td>
+                        <td th:text="${transactionfile.sourceId}"></td>
+                        <td th:text="${transactionfile.destinationId}"></td>
+                        <td th:text="${transactionfile.amountOfMoney}"></td>
+                        <td th:text="${transactionfile.transactionDate}"></td>
+                        <td th:text="${transactionfile.title}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit" class="btn btn-primary">back</button>
+        </div>
+    </div>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
