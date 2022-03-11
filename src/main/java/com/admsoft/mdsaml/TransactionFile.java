@@ -2,6 +2,7 @@ package com.admsoft.mdsaml;
 
 import com.opencsv.bean.CsvBindByName;
 
+import javax.persistence.GeneratedValue;
 import java.util.Date;
 
 public class TransactionFile {
@@ -16,18 +17,10 @@ public class TransactionFile {
     @CsvBindByName
     private float amountOfMoney;
     @CsvBindByName
-    private Date transactionDate;
+    private String transactionDate;
     @CsvBindByName
     private String title;
-    public TransactionFile(long id,String typeOfAction,int sourceId,int destinationId,float amountOfMoney,Date transactionDate,String title){
-        this.id=id;
-        this.typeOfAction=typeOfAction;
-        this.sourceId=sourceId;
-        this.destinationId=destinationId;
-        this.amountOfMoney=amountOfMoney;
-        this.transactionDate=transactionDate;
-        this.title=title;
-    }
+
     public long getId() {
         return id;
     }
@@ -52,11 +45,11 @@ public class TransactionFile {
         this.amountOfMoney = amountOfMoney;
     }
 
-    public Date getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
 
