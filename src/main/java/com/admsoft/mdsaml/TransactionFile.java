@@ -2,22 +2,32 @@ package com.admsoft.mdsaml;
 
 import com.opencsv.bean.CsvBindByName;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class TransactionFile {
-    @CsvBindByName
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false, length = 60)
     @CsvBindByName
     private String typeOfAction;
+    @Column(nullable = false, length = 60)
     @CsvBindByName
     private int sourceId;
+    @Column(nullable = false, length = 60)
     @CsvBindByName
     private int destinationId;
+    @Column(nullable = false, length = 60)
     @CsvBindByName
     private float amountOfMoney;
+    @Column(nullable = false, length = 60)
     @CsvBindByName
     private String transactionDate;
+    @Column(nullable = false, length = 60)
     @CsvBindByName
     private String title;
 
