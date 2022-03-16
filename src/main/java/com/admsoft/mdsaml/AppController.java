@@ -21,7 +21,8 @@ public class AppController {
 
     @Autowired
     private UserRepository userRepo;
-
+    @Autowired
+    private TransactionFileRepository transactionRepo;
     @GetMapping("")
     public String viewHomePage() {
         return "index";
@@ -46,7 +47,6 @@ public class AppController {
     public String listUsers(Model model) {
         List<User> listUsers = userRepo.findAll();
         model.addAttribute("listUsers", listUsers);
-
         return "users";
     }
     @PostMapping("/upload-csv-file")
@@ -74,6 +74,13 @@ public class AppController {
 
                 model.addAttribute("TransactionFile", TransactionFiles);
                 model.addAttribute("status", true);
+int i=0;
+do {
+    transactionRepo.save(TransactionFiles.get(i));
+i++;
+}while(TransactionFiles.get(i)!=null);
+
+
 
             } catch (Exception ex) {
                 model.addAttribute("message", "An error occurred while processing the CSV file.");

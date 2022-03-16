@@ -5,7 +5,7 @@ import com.opencsv.bean.CsvBindByName;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "transactionFiles")
+@Table(name = "transaction_Files")
 public class TransactionFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
