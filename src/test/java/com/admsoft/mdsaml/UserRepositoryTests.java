@@ -7,12 +7,14 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @DataJpaTest
+
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class UserRepositoryTests {
