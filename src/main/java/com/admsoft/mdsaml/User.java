@@ -1,6 +1,12 @@
 package com.admsoft.mdsaml;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,6 +33,8 @@ public class User {
 
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
+    @OneToMany(mappedBy = "user")
+    private List<Client> clientSet = new ArrayList<Client>();
 
     public Long getId() {
         return id;
