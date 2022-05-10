@@ -8,13 +8,18 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class UserRepositoryTests {
     @Autowired
     private TestEntityManager entityManager;
-
+    @Autowired
+    private ClientRepository clientRepository;
     @Autowired
     private UserRepository repo;
     @Test
@@ -24,7 +29,14 @@ public class UserRepositoryTests {
         user.setPassword("123");
         user.setFirstName("redzesz");
         user.setLastName("redzesz");
+        List<Client> clientList= new ArrayList<>();
+        Client client =new Client();
+        client.setType("jhb");
+        client.setName("ajd9uiuo");
+        client.setUser(user);
+        clientList.add(client);
 
+        user.setClientSet(clientList);
         User savedUser = repo.save(user);
 
         User existUser = entityManager.find(User.class, savedUser.getId());

@@ -16,7 +16,7 @@ public class ClientRepositoryTest {
     ClientRepository clientRepository;
     @Test
     public void clientRepoTest(){
-        User user = userRepository.findByEmail("gregor0ad@gmail.com");
+        User user = userRepository.findByEmail("drunkpiglerojt@gmail.com");
         Client client= new Client();
         client.setUser(user);
         client.setName("achmed goatfucker");
