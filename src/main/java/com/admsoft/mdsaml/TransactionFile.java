@@ -18,16 +18,13 @@ public class TransactionFile {
     private int sourceId;
     @Column(nullable = false, length = 60)
     @CsvBindByName
-    private int destinationId;
-    @Column(nullable = false, length = 60)
-    @CsvBindByName
     private float amountOfMoney;
     @Column(nullable = false, length = 60)
     @CsvBindByName
-    private String transactionDate;
-    @Column(nullable = false, length = 60)
-    @CsvBindByName
-    private String title;
+    private String transactionTime;
+    @ManyToOne(fetch = FetchType.LAZY,optional = true)
+    @JoinColumn(name="clients_id")
+    private Client client;
 
     public long getId() {
         return id;
@@ -37,13 +34,8 @@ public class TransactionFile {
         this.id = id;
     }
 
-    public int getDestinationId() {
-        return destinationId;
-    }
 
-    public void setDestinationId(int destinationId) {
-        this.destinationId = destinationId;
-    }
+
 
     public float getAmountOfMoney() {
         return amountOfMoney;
@@ -54,20 +46,16 @@ public class TransactionFile {
     }
 
     public String getTransactionDate() {
-        return transactionDate;
+        return transactionTime;
     }
 
     public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
+        this.transactionTime = transactionDate;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+
+
 
 
 

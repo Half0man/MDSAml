@@ -3,6 +3,8 @@ package com.admsoft.mdsaml;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class AppController {
     private UserRepository userRepo;
     @Autowired
     private TransactionFileRepository transactionRepo;
+    @Autowired
+    private ClientRepository clientRepo;
     @GetMapping("")
     public String viewHomePage() {
         return "index";
@@ -74,11 +78,11 @@ public class AppController {
 
                 model.addAttribute("TransactionFile", TransactionFiles);
                 model.addAttribute("status", true);
-int i=0;
-do {
-    transactionRepo.save(TransactionFiles.get(i));
-i++;
-}while(TransactionFiles.get(i)!=null);
+                    int i=0;
+                    do {
+                        transactionRepo.save(TransactionFiles.get(i));
+                        i++;
+                        }while(TransactionFiles.get(i)!=null);
 
 
 
@@ -89,5 +93,16 @@ i++;
         }
 
         return "file-upload-status";
+    }
+    @PostMapping("/process_addClient")
+    public String addClient(@org.jetbrains.annotations.NotNull tmpClient tmpClient){
+        Client client=new Client();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentEmail = /*"drunkpiglerojnt@gmail.com";*/authentication.getName();
+        client.setUser(userRepo.findByEmail(currentEmail));
+        client.setName(tmpClient.getTmpName());
+        client.setType(tmpClient.getTmpType());
+        clientRepo.save(client);
+        return "users";
     }
 }

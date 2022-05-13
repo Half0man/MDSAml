@@ -17,6 +17,12 @@
         <java.version>11</java.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <dependencies>
 
         <dependency>
@@ -43,6 +49,7 @@
              <groupId>org.thymeleaf.extras</groupId>
              <artifactId>thymeleaf-extras-springsecurity5</artifactId>
          </dependency>
+
 
          <dependency>
              <groupId>org.springframework.boot</groupId>
@@ -94,7 +101,18 @@
              <groupId>org.webjars</groupId>
              <artifactId>webjars-locator-core</artifactId>
          </dependency>
-     </dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ptnplanet</groupId>
+            <artifactId>Java-Naive-Bayes-Classifier</artifactId>
+            <version>1.0.7</version>
+        </dependency>
+    </dependencies>
      <dependencyManagement>
          <dependencies>
              <dependency>
