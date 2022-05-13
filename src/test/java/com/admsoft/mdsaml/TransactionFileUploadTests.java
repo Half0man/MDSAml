@@ -23,10 +23,9 @@ public class TransactionFileUploadTests {
         TransactionFile transactionFile =new TransactionFile();
         transactionFile.setTypeOfAction("cash-in");
         transactionFile.setSourceId(1);
-        transactionFile.setDestinationId(2);
+
         transactionFile.setAmountOfMoney(2137);
         transactionFile.setTransactionDate("01.01.2020 21:37");
-        transactionFile.setTitle("cash-in");
         TransactionFile savedTransactionfile=repository.save(transactionFile);
         TransactionFile existTransactionfile= entityManager.find(TransactionFile.class,savedTransactionfile.getId());
         assertThat(transactionFile.getId()).isEqualTo(existTransactionfile.getId());
