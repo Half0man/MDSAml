@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:th="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>Sign Up</title>
@@ -13,7 +12,7 @@
     <div>
         <h1>Add Client</h1>
     </div>
-    <form th:action="@{process_addClient}" th:object="${tmpClient}"
+    <form th:action="@{/saveClient}" th:object="${client}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row">
@@ -31,8 +30,7 @@
                 </div>
             </div>
 
-            <span th:text="${#authentication.getPrincipal().}"></span>
-            <span th:text="${#authentication.getPrincipal().authorities}"></span>
+
 
                 <button type="submit" class="btn btn-primary">Add Client</button>
             </div>

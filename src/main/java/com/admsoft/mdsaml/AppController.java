@@ -8,10 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -94,15 +93,21 @@ public class AppController {
 
         return "file-upload-status";
     }
-    @PostMapping("/process_addClient")
-    public String addClient(@org.jetbrains.annotations.NotNull tmpClient tmpClient){
+
+
+    @GetMapping("/showUploadClientForm")
+    public String getClientData(Model model){
+       model.addAttribute("client",new tmpClient());
+       return "client_upload_form";
+    }
+    @PostMapping("/saveClient")
+    public String submitClient(@ModelAttribute tmpClient tmpClient ,Model model){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         Client client=new Client();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentEmail = /*"drunkpiglerojnt@gmail.com";*/authentication.getName();
-        client.setUser(userRepo.findByEmail(currentEmail));
-        client.setName(tmpClient.getTmpName());
         client.setType(tmpClient.getTmpType());
+        client.setName(tmpClient.getTmpName());
+        client.setUser(userRepo.findByEmail(authentication.getName()));
         clientRepo.save(client);
-        return "users";
+        return "redirect:/users";
     }
 }
