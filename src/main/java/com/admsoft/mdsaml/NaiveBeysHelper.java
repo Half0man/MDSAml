@@ -8,11 +8,12 @@ import de.daslaboratorium.machinelearning.classifier.bayes.BayesClassifier;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NaiveBeysHelper {
+public class NaiveBeysHelper implements Serializable {
     Classifier<String,String>bayes =new BayesClassifier<String,String>();
 
     List<String[]> loadItems(String fileName){
@@ -45,4 +46,6 @@ public class NaiveBeysHelper {
         }
 
     }
+
+
 }

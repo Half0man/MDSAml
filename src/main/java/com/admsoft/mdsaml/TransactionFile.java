@@ -1,9 +1,13 @@
 package com.admsoft.mdsaml;
 
 import com.opencsv.bean.CsvBindByName;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+@Getter
+@Setter
 @Entity
 @Table(name = "transaction_Files")
 public class TransactionFile {
@@ -25,53 +29,4 @@ public class TransactionFile {
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name="clients_id")
     private Client client;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-
-
-    public float getAmountOfMoney() {
-        return amountOfMoney;
-    }
-
-    public void setAmountOfMoney(float amountOfMoney) {
-        this.amountOfMoney = amountOfMoney;
-    }
-
-    public String getTransactionDate() {
-        return transactionTime;
-    }
-
-    public void setTransactionDate(String transactionDate) {
-        this.transactionTime = transactionDate;
-    }
-
-
-
-
-
-
-
-    public String getTypeOfAction() {
-        return typeOfAction;
-    }
-
-    public void setTypeOfAction(String typeOfAction) {
-        this.typeOfAction = typeOfAction;
-    }
-
-    public int getSourceId() {
-        return sourceId;
-    }
-
-    public void setSourceId(int sourceId) {
-        this.sourceId = sourceId;
-    }
 }

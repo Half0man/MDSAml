@@ -7,6 +7,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.Assert;
+
+import java.util.List;
 
 @ContextConfiguration
 @DataJpaTest
@@ -20,11 +23,11 @@ public class ClientRepositoryTest {
     ClientRepository clientRepository;
     @Test
     public void clientRepoTest(){
+
+        List<Client> client =clientRepository.findByUser("drunkpiglerojnt@gmail.com");
         User user = userRepository.findByEmail("drunkpiglerojnt@gmail.com");
-        Client client= new Client();
-        client.setUser(user);
-        client.setName("achmed goatfucker");
-        client.setType("m25-40");
-        clientRepository.save(client);
     }
+
+
+
 }
