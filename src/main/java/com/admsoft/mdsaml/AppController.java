@@ -49,7 +49,10 @@ public class AppController {
     }
     @GetMapping("/users")
     public String listUsers(Model model) {
-        List<User> listUsers = userRepo.findAll();
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepo.findByEmail(authentication.getName());
+        String mail = user.getEmail();
+        List<Client> listUsers = clientRepo.findByUser(mail);
         model.addAttribute("listUsers", listUsers);
         return "users";
     }
@@ -109,6 +112,12 @@ public class AppController {
         client.setName(tmpClient.getTmpName());
         client.setUser(userRepo.findByEmail(authentication.getName()));
         clientRepo.save(client);
+        return "redirect:/users";
+    }
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public String deleteClient(@RequestParam long id){
+        //long identification = Long.parseLong(id);
+        clientRepo.deleteById(id);
         return "redirect:/users";
     }
 }
