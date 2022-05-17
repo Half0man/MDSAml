@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 @Controller
 public class AppController {
@@ -58,7 +59,8 @@ public class AppController {
     }
     @PostMapping("/upload-csv-file")
     public String uploadCSVFile(@RequestParam("file") MultipartFile file, Model model) {
-
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepo.findByEmail(authentication.getName());
 
         if (file.isEmpty()) {
             model.addAttribute("message", "Please select a CSV file to upload.");
@@ -83,6 +85,7 @@ public class AppController {
                 model.addAttribute("status", true);
                     int i=0;
                     do {
+                        TransactionFiles.get(i).setClient(clientRepo.findById(user.getCurrentClientId()));
                         transactionRepo.save(TransactionFiles.get(i));
                         i++;
                         }while(TransactionFiles.get(i)!=null);
@@ -95,7 +98,7 @@ public class AppController {
             }
         }
 
-        return "file-upload-status";
+        return "redirect:TransactionUplad";
     }
 
 
@@ -116,8 +119,23 @@ public class AppController {
     }
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public String deleteClient(@RequestParam long id){
-        //long identification = Long.parseLong(id);
         clientRepo.deleteById(id);
         return "redirect:/users";
+    }
+    @RequestMapping(value = "/addTransactions",method = RequestMethod.POST)
+    public String menageClient(@RequestParam long id){
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepo.findByEmail(authentication.getName());
+        user.setCurrentClientId(id);
+        userRepo.save(user);
+        return "redirect:/TransactionUplad";
+    }
+    @GetMapping("/TransactionUplad")
+    public String listTransactions(Model model) {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepo.findByEmail(authentication.getName());
+        List<TransactionFile> listTransactionfiles = transactionRepo.findByClient(user.getCurrentClientId());
+        model.addAttribute("listTransactionfiles", listTransactionfiles);
+        return "TransactionUplad";
     }
 }

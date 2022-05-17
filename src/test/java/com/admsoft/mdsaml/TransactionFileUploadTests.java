@@ -18,15 +18,25 @@ public class TransactionFileUploadTests {
     private TestEntityManager entityManager;
     @Autowired
     private TransactionFileRepository repository;
+    @Autowired
+    ClientRepository clientRepository;
+    @Autowired
+    UserRepository userRepository;
     @Test
     public void createTestTransactionfile(){
         TransactionFile transactionFile =new TransactionFile();
         transactionFile.setTypeOfAction("cash-in");
-        transactionFile.setSourceId(1);
+        transactionFile.setAmountOfMoney(2);
+        transactionFile.setTransactionTime("2-3");
+        transactionFile.setAmountOnMoneyLeft(4);
+        Client client=new Client();
+        client.setUser(userRepository.findByEmail("drunkpiglerojnt@gmail.com"));
+        client.setType("m25-40");
+        client.setName("cunt");
+        clientRepository.save(client);
+        transactionFile.setClient(client);
+        repository.save(transactionFile);
 
-        transactionFile.setAmountOfMoney(2137);
-        TransactionFile savedTransactionfile=repository.save(transactionFile);
-        TransactionFile existTransactionfile= entityManager.find(TransactionFile.class,savedTransactionfile.getId());
-        assertThat(transactionFile.getId()).isEqualTo(existTransactionfile.getId());
+
     }
 }

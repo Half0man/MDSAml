@@ -1,5 +1,6 @@
 package com.admsoft.mdsaml;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,14 +20,18 @@ public class TransactionFile {
     private String typeOfAction;
     @Column(nullable = false, length = 60)
     @CsvBindByName
-    private int sourceId;
+    private String sourceId;
     @Column(nullable = false, length = 60)
     @CsvBindByName
     private float amountOfMoney;
     @Column(nullable = false, length = 60)
     @CsvBindByName
     private String transactionTime;
+    @Column(nullable = false, length = 60)
+    @CsvBindByName
+    private float amountOnMoneyLeft;
+
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
-    @JoinColumn(name="clients_id")
+    @JoinColumn(name="client_id")
     private Client client;
 }

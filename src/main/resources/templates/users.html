@@ -33,26 +33,21 @@
             <tbody>
             <tr th:each="client: ${listUsers}">
                 <td th:text="${client.id}">User ID</td>
-                <td th:text="${client.name}">E-mail</td>
-                <td th:text="${client.type}">First Name</td>
+                <td th:text="${client.name}">Name</td>
+                <td th:text="${client.type}">Type</td>
                 <td> <form th:action="@{/delete}" method="post">
                     <input type="hidden" name="id" th:value="${client.id}" />
                     <input type="submit" value="Delete" class="btn btn-danger" />
+                </form> </td>
+                <td> <form th:action="@{/addTransactions}" method="post">
+                    <input type="hidden" name="id" th:value="${client.id}" />
+                    <input type="submit" value="Menage Transactions" class="btn btn-primary" />
                 </form> </td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div>
-        <h1>Load Transactions File</h1>
-    </div>
-    <form method="POST" th:action="@{/upload-csv-file}" enctype="multipart/form-data">
-        <div class="form-group mt-3">
-            <label for="file">Select a CSV file</label>
-            <input type="file" name="file" class="form-control-file" id="file" accept=".csv">
-        </div>
-        <button type="submit" class="btn btn-primary">Load File</button>
-    </form>
+
 
 
     <div class="form-group mt-3">

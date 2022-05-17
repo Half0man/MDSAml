@@ -37,15 +37,9 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-    public List<Client> getClientSet() {
-        return clientSet;
-    }
-
-    public void setClientSet(List<Client> clientSet) {
-        this.clientSet = clientSet;
-    }
 
     @OneToMany(mappedBy = "user")
-    private List<Client> clientSet = new ArrayList<Client>();
+    private List<Client> clientSet;
 
+    private long currentClientId;
 }
