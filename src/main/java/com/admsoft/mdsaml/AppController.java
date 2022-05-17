@@ -17,11 +17,13 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 @Controller
 public class AppController {
 
-
+    String Filepath="C:\\Users\\lambo\\Documents\\Praca Inżynierska\\plik.dat";
+    BayesModelHandler bayesModelHandler=new BayesModelHandler();
     @Autowired
     private UserRepository userRepo;
     @Autowired
@@ -86,6 +88,7 @@ public class AppController {
                     int i=0;
                     do {
                         TransactionFiles.get(i).setClient(clientRepo.findById(user.getCurrentClientId()));
+                        TransactionFiles.get(i).setIsFraud("undicided");
                         transactionRepo.save(TransactionFiles.get(i));
                         i++;
                         }while(TransactionFiles.get(i)!=null);
@@ -137,5 +140,28 @@ public class AppController {
         List<TransactionFile> listTransactionfiles = transactionRepo.findByClient(user.getCurrentClientId());
         model.addAttribute("listTransactionfiles", listTransactionfiles);
         return "TransactionUplad";
+    }
+    @RequestMapping(value = "/deletetransaction",method = RequestMethod.POST)
+    public String deleteTransaction(@RequestParam long id){
+        transactionRepo.deleteById(id);
+        return "redirect:/TransactionUplad";
+    }
+    @RequestMapping(value = "/checkTransaction",method = RequestMethod.POST)
+    public String checkTransaction(@RequestParam long id){
+        TransactionFile transactionFile= transactionRepo.findById(id);
+        NaiveBeysHelper beysHelper= bayesModelHandler.readBayes(Filepath);
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepo.findByEmail(authentication.getName());
+        Client client =clientRepo.findById(user.getCurrentClientId());
+        String transaction[]=new String[5];
+        transaction[0]=transactionFile.getTypeOfAction();
+        CashClasificator cashClasificator=new CashClasificator();
+        transaction[1]=cashClasificator.clasifyAmount(transactionFile.getAmountOfMoney());
+        transaction[2]=transactionFile.getTransactionTime();
+        transaction[3]=client.getType();
+        transaction[4]=cashClasificator.clasifyAmountleft(transactionFile.getAmountOnMoneyLeft());
+        transactionFile.setIsFraud(beysHelper.bayes.classify(Arrays.asList(transaction)).getCategory());;
+        transactionRepo.save(transactionFile);
+    return "redirect:/TransactionUplad";
     }
 }

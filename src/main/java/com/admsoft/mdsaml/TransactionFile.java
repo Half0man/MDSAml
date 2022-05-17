@@ -18,10 +18,6 @@ public class TransactionFile {
     @Column(nullable = false, length = 60)
     @CsvBindByName
     private String typeOfAction;
-    @Column(nullable = false, length = 60)
-    @CsvBindByName
-    private String sourceId;
-    @Column(nullable = false, length = 60)
     @CsvBindByName
     private float amountOfMoney;
     @Column(nullable = false, length = 60)
@@ -30,7 +26,9 @@ public class TransactionFile {
     @Column(nullable = false, length = 60)
     @CsvBindByName
     private float amountOnMoneyLeft;
-
+    @Column(nullable = false, length = 60)
+    @CsvBindByName
+    private String isFraud;
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name="client_id")
     private Client client;

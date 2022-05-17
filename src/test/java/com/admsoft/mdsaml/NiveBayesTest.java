@@ -13,12 +13,11 @@ public class NiveBayesTest {
     String testRecord[]={"karta","10000-100000","04 do 06","czlowiek m18-25","100-500"};
     @Test
     void testbayes(){
-        NaiveBeysHelper naiveBeysHelper =new NaiveBeysHelper();
-        naiveBeysHelper.learn(naiveBeysHelper.loadItems(filepath));
-        naiveBeysHelper.bayes.classify(Arrays.asList(testRecord));
         BayesModelHandler bayesModelHandler=new BayesModelHandler();
-        bayesModelHandler.writeBayes(naiveBeysHelper,modelFilepath);
-        bayesModelHandler.readBayes(modelFilepath);
-        Assert.notNull(naiveBeysHelper);
+        NaiveBeysHelper naiveBeysHelper =bayesModelHandler.readBayes(modelFilepath);
+       System.out.println(naiveBeysHelper.bayes.classify(Arrays.asList(testRecord)));
+
+
+
     }
 }
