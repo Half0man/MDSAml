@@ -24,6 +24,7 @@ public class AppController {
 
     String Filepath="C:\\Users\\lambo\\Documents\\Praca Inżynierska\\plik.dat";
     BayesModelHandler bayesModelHandler=new BayesModelHandler();
+    NaiveBeysHelper beysHelper= bayesModelHandler.readBayes(Filepath);
     @Autowired
     private UserRepository userRepo;
     @Autowired
@@ -149,7 +150,7 @@ public class AppController {
     @RequestMapping(value = "/checkTransaction",method = RequestMethod.POST)
     public String checkTransaction(@RequestParam long id){
         TransactionFile transactionFile= transactionRepo.findById(id);
-        NaiveBeysHelper beysHelper= bayesModelHandler.readBayes(Filepath);
+
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         User user = userRepo.findByEmail(authentication.getName());
         Client client =clientRepo.findById(user.getCurrentClientId());
@@ -163,5 +164,9 @@ public class AppController {
         transactionFile.setIsFraud(beysHelper.bayes.classify(Arrays.asList(transaction)).getCategory());;
         transactionRepo.save(transactionFile);
     return "redirect:/TransactionUplad";
+    }
+    @RequestMapping(value = "/back",method = RequestMethod.POST)
+    public String goBack(){
+        return "redirect:/users";
     }
 }

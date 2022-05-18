@@ -40,6 +40,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Client> clientSet;
-
+    @Column(name = "currentClientid", nullable = false, length = 20)
     private long currentClientId;
 }
