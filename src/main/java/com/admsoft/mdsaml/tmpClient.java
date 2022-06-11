@@ -1,6 +1,6 @@
 package com.admsoft.mdsaml;
 
-import lombok.Value;
+
 
 
 public class tmpClient {

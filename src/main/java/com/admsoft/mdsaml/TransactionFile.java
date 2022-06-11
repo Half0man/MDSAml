@@ -14,7 +14,7 @@ import java.util.Date;
 public class TransactionFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(nullable = false, length = 60)
     @CsvBindByName
     private String typeOfAction;

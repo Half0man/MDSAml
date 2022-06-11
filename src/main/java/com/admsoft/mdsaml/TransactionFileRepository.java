@@ -3,6 +3,7 @@ package com.admsoft.mdsaml;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface TransactionFileRepository extends JpaRepository<TransactionFile, Long> {
@@ -10,4 +11,7 @@ public interface TransactionFileRepository extends JpaRepository<TransactionFile
     public TransactionFile findById(long id);
     @Query("FROM TransactionFile  c WHERE c.client.id = ?1")
     public List<TransactionFile> findByClient(long id);
+    @Transactional
+    @Query("DELETE from TransactionFile c WHERE c.client.id = ?1")
+    public void deleteByClient(long id);
 }

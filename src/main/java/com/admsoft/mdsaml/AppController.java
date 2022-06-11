@@ -123,6 +123,7 @@ public class AppController {
     }
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public String deleteClient(@RequestParam long id){
+        //transactionRepo.deleteByClient(id);
         clientRepo.deleteById(id);
         return "redirect:/users";
     }
