@@ -24,8 +24,8 @@ public class ClientRepositoryTest {
     @Test
     public void clientRepoTest(){
 
-        List<Client> client =clientRepository.findByUser("drunkpiglerojnt@gmail.com");
-        User user = userRepository.findByEmail("drunkpiglerojnt@gmail.com");
+        List<Client> client =clientRepository.findByUser("runkpiglerojnt@gmail.com");
+        User user = userRepository.findByEmail("runkpiglerojnt@gmail.com");
     }
 
 

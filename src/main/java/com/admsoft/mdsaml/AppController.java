@@ -22,7 +22,7 @@ import java.util.List;
 @Controller
 public class AppController {
 
-    String Filepath="C:\\Users\\lambo\\Documents\\Praca Inżynierska\\plik.dat";
+    String Filepath="C:\\Users\\lambo\\Documents\\Praca Inżynierska\\model.dat";
     BayesModelHandler bayesModelHandler=new BayesModelHandler();
     NaiveBeysHelper beysHelper= bayesModelHandler.readBayes(Filepath);
     @Autowired

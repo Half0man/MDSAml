@@ -30,9 +30,9 @@ public class TransactionFileUploadTests {
         transactionFile.setTransactionTime("2-3");
         transactionFile.setAmountOnMoneyLeft(4);
         Client client=new Client();
-        client.setUser(userRepository.findByEmail("drunkpiglerojnt@gmail.com"));
+        client.setUser(userRepository.findByEmail("runkpiglerojnt@gmail.com"));
         client.setType("m25-40");
-        client.setName("cunt");
+        client.setName("ozjasz goldberg");
         clientRepository.save(client);
         transactionFile.setClient(client);
         repository.save(transactionFile);
